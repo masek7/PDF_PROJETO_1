@@ -1,32 +1,29 @@
 from pathlib import Path
-import pymupdf
+import pymupdf as fitz
 
 
+def process_pdf(pdf_file):
 
+    #funcao que processa o pdf e extrai o texto da primeira pagina
+    read_pdf = pdf_file.read()
 
-arquivo = input("Digite aqui o caminho para o PDF:")
+    try:
+        doc = fitz.open(stream= read_pdf, filetype="pdf")
+        page = doc.load_page(0)  # Carrega a primeira página (índice 0)
+        text_content = page.get_text()  # Extrai todo o texto da pagina especifica
 
-caminho_path = Path(arquivo)
+        return {
+            "status": "success",
+            "filename": pdf_file.name,
+            "content": text_content
+        }
 
-if caminho_path.suffix == '.pdf':
-    doc = pymupdf.open(caminho_path)
-    #print(doc.page_count)
-
-
-
-    text_page = doc.get_page_text(0)  # Extrai todo o texto da pagina especifica
-
-    #print(text_page)
-
-    procurado = text_page.find("n.")  # Procura o índice da primeira ocorrencia de Nº
-    procurado2 = text_page.rfind("TOTAL R")  # Procura o índice da ultima ocorrencia de Nº
-    #print(procurado)
-
-    nf = text_page[procurado: procurado + 13]  # A partir do índice encontrado na variável procurado, ele extrai até o décimo 15 a mais. Ou seja, procurado + 15.
-    valor = text_page[procurado2: procurado2 + 15]
-    print(nf.replace(" ", ""))
-    print(valor.replace(" " "\n", ""))
-
-    doc.close()
-else:
-    print("Por favor, insira um arquivo pdf")
+    except Exception as e:
+        return {
+            "status": "error",
+            "filename": getattr (pdf_file, 'name', 'desconhecido'),
+            "message": str(e)
+        }
+        
+       
+    
