@@ -23,7 +23,7 @@ def analyze_pdf(pdf_file):
         "status": "success",
         "dados": {
         "CNPJ": cnpj,
-        "Data": date,
-        "Valor": value
+        "DATA": date,
+        "VALOR": value
         }
     }

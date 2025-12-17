@@ -13,7 +13,7 @@ def extract_cnpj(doc):
         return cnpj_encontrado[0]
         
     except IndexError as e:
-        return f"Erro ao extrair CNPJ: {e}" 
+        return None
     
 
 
@@ -35,7 +35,7 @@ def extract_value(doc):
 
 
     except Exception as e:
-        return f"Erro ao extrair valor: {e}"
+        return None
     
 
 
@@ -54,6 +54,6 @@ def extract_date(doc):
         return dn_format
     
     except Exception as e:
-        return f"Erro ao extrair data: {e}"
+        return None
     
 
