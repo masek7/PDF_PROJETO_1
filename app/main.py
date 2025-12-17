@@ -21,8 +21,9 @@ def get_pdf():
      accept_multiple_files=True)
     
 
-    arquivos_processados = []
+    
     if arquivos :
+        arquivos_processados = []
         st.write(f'Arquivos carregados com sucesso! Total de {len(arquivos)} arquivo(s).')
 
         for file in arquivos:
@@ -38,7 +39,10 @@ def get_pdf():
 
         if arquivos_processados:
             df = pd.DataFrame(arquivos_processados)
-            st.dataframe(df)
-    return arquivos
+            st.data_editor(df)
+            total_valor = df["VALOR"].sum()
+            st.metric("O total das suas notas é: ", f"R$ {total_valor:,.2f}")
+
+            
 
 get_pdf() 
