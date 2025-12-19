@@ -23,7 +23,7 @@ def extract_value(doc):
     try:
 
         #func que extrai o valor contido na nota
-        padrao = re.compile(r'R\$\s*([\d\.,]+)', re.IGNORECASE)
+        padrao = re.compile(r"\b\d+(?:[.,]\d{3})*[.,]\d{2}\b")
         valores_encontrados = padrao.findall(doc)
 
         if not valores_encontrados:
@@ -53,12 +53,13 @@ def extract_value(doc):
             except ValueError:
                 continue
             
-            if not valores_validos:
-                return None
+        if not valores_validos:
+            return None
             
     
-            valor_maximo = max(valores_validos)
-            return valor_maximo
+        valor_maximo = max(valores_validos)
+        return valor_maximo
+            
 
     except Exception as e:
         return None
