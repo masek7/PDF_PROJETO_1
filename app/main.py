@@ -12,37 +12,37 @@ st.set_page_config(
 
 st.markdown("""
     <style>
-        /* 1. Importa a fonte do Google */
+        
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-        /* 2. Aplica em TODOS os elementos HTML possíveis */
+        
         html, body, [class*="css"], div, span, p, label, button, input, textarea, select {
             font-family: 'Poppins', sans-serif !important;
         }
 
-        /* 3. Força específica para Cabeçalhos (H1-H6) */
+        
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Poppins', sans-serif !important;
             font-weight: 600 !important;
         }
 
-        /* 4. Força em Tabelas e Dataframes (inclusive cabeçalhos de coluna) */
+        
         [data-testid="stDataFrame"], [data-testid="stTable"], .stDataFrame div {
             font-family: 'Poppins', sans-serif !important;
         }
 
-        /* 5. Força em Inputs e Placeholders (o texto cinza de 'digite aqui') */
+        
         input::placeholder, textarea::placeholder {
             font-family: 'Poppins', sans-serif !important;
             color: #888 !important; /* Opcional: muda a cor do placeholder */
         }
         
-        /* 6. Força em Métricas (aquele número grande) */
+        
         [data-testid="stMetricValue"] {
             font-family: 'Poppins', sans-serif !important;
         }
         
-        /* 7. Ajuste fino para o Data Editor (células internas) */
+        
         div[role="grid"] {
             font-family: 'Poppins', sans-serif !important;
         }
