@@ -6,7 +6,7 @@ from service import analyze_pdf as ap
 
 
 st.set_page_config(
-    page_title="Processador de notas fiscais em PDF", 
+    page_title="NFP", 
     page_icon=":memo:", 
     layout="wide")
 
