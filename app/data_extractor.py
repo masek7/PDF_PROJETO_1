@@ -23,16 +23,42 @@ def extract_value(doc):
     try:
 
         #func que extrai o valor contido na nota
+        padrao = re.compile(r'R\$\s*([\d\.,]+)', re.IGNORECASE)
+        valores_encontrados = padrao.findall(doc)
 
+        if not valores_encontrados:
+            return None
         
+        valores_validos = []
+
+        for valor in valores_encontrados:
+            try:
+                valor_limpo = valor
+                
+                if "," in valor_limpo and "." in valor_limpo:
+                    if valor_limpo.rfind(",") > valor_limpo.rfind("."):
+                        valor_limpo = valor_limpo.replace(".", "").replace(",", ".")
+                    else:
+                        valor_limpo = valor_limpo.replace(",", "")
+                elif "," in valor_limpo:
+                    valor_limpo = valor_limpo.replace(",", ".")
+                elif "." in valor_limpo:
+                    if len(valor_limpo.split(".")[-1]) == 2:
+                        valor_limpo = valor_limpo
+                    else:
+                        valor_limpo = valor_limpo.replace(".", "")
+                
+                valor_float = float(valor_limpo)
+                valores_validos.append(valor_float)
+            except ValueError:
+                continue
+            
+            if not valores_validos:
+                return None
+            
     
-        value = doc.rfind("TOTAL R")
-        valor = doc[value + 8: value + 15]
-        valor_format = valor.replace(" " "\n", "")
-        
-        
-        return float(valor_format)
-
+            valor_maximo = max(valores_validos)
+            return valor_maximo
 
     except Exception as e:
         return None
