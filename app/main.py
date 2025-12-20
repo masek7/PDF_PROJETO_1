@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 from service import analyze_pdf as ap
-
-
+import xlsxwriter 
+import io
 
 
 st.set_page_config(
@@ -81,6 +81,13 @@ def get_pdf():
             df = pd.DataFrame(arquivos_processados)
             df_editado = st.data_editor(df)
             csv = df_editado.to_csv(index=False).encode('utf-8')
+            buffer = io.BytesIO()
+            with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+                df_editado.to_excel(writer, index=False, sheet_name='Notas Fiscais')
+                
+               
+            xlsx = buffer.getvalue()
+     
             
             total_valor = df_editado["VALOR"].sum()
 
@@ -99,6 +106,13 @@ def get_pdf():
                 mime="text/csv",
                 use_container_width=True
                
+            )
+                st.download_button(
+                label="BAIXAR PLANILHA (XLSX)",
+                data=xlsx,
+                file_name="dados_processados.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                use_container_width=True
             )
             
 

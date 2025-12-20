@@ -16,12 +16,12 @@ O projeto resolve o problema de digitação manual de notas, permitindo upload e
 * [x] Identificação automática de **CNPJ** e **Data de Emissão**.
 * [x] Interface de tabela editável (Data Editor) para correções manuais rápidas.
 * [x] Exportação dos dados consolidados para **CSV**.
-* [x] Identificação visual de arquivos problemáticos.
+* [ ] Identificação visual de arquivos problemáticos.
 
 ## Roadmap (Próximos Passos)
 A evolução planejada para o projeto inclui:
 * [ ] **Integração com OCR (Tesseract):** Para ler notas escaneadas/fotos que não possuem camada de texto.
-* [ ] **Exportação Excel (.xlsx):** Para manter a formatação financeira nativa.
+* [x] **Exportação Excel (.xlsx):** Para manter a formatação financeira nativa.
 * [ ] **Validação de CNPJ:** Checkagem matemática de dígitos verificadores.
 * [ ] **Dashboard Analítico:** Gráficos de gastos por período no próprio app.
-
+* [ ] **Validação de CNPJ com API** Verifica se o CNPJ está ativo
