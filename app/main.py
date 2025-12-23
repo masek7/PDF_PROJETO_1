@@ -68,6 +68,13 @@ def get_pdf():
         for file in arquivos:
             resultado = ap(file)
 
+            if resultado["dados"]["CNPJ"] is None or resultado["dados"]["DATA"] is None or resultado["dados"]["VALOR"] is None:
+                status = "ATENÇÃO"
+                resultado["dados"]["STATUS"] = status
+            else:
+                status = "SUCESSO"
+                resultado["dados"]["STATUS"] = status
+
             if resultado["status"] == "success":
                 arquivos_processados.append({
                     "ARQUIVO": resultado["filename"],
@@ -75,11 +82,22 @@ def get_pdf():
             })
             else:
                 st.error(f"Erro ao processar {resultado['filename']}: {resultado['message']}")
-        
+
+            
+
         if arquivos_processados:
             
             df = pd.DataFrame(arquivos_processados)
-            df_editado = st.data_editor(df)
+            
+
+            def color_cells(val):
+                color = 'yellow' if val == 'ATENÇÃO' else 'lightgreen'
+                return f'color: {color}'
+            
+            df_editado_styled = df.style.applymap(color_cells, subset=['STATUS'])
+
+            df_editado = st.data_editor(df_editado_styled,disabled=['STATUS'], use_container_width=True)
+
             csv = df_editado.to_csv(index=False).encode('utf-8')
             buffer = io.BytesIO()
             with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:

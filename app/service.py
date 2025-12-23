@@ -22,6 +22,7 @@ def analyze_pdf(pdf_file):
         "filename": processed_pdf["filename"],
         "status": "success",
         "dados": {
+        "STATUS" : "",
         "CNPJ": cnpj,
         "DATA": date,
         "VALOR": value
