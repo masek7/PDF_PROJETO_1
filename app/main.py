@@ -92,7 +92,7 @@ def get_pdf():
 
             def color_cells(val):
                 color = 'yellow' if val == 'ATENÇÃO' else 'lightgreen'
-                return f'color: {color}'
+                return f'color: {color}; font-weight: bold'
             
             df_editado_styled = df.style.applymap(color_cells, subset=['STATUS'])
 

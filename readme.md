@@ -2,7 +2,7 @@
 
 Uma aplicação web desenvolvida em Python para automatizar a extração de informações financeiras (CNPJ, Data, Valor Total) de notas fiscais em formato PDF.
 
-O projeto resolve o problema de digitação manual de notas, permitindo upload em lote e exportação estruturada para CSV.
+O projeto resolve o problema de digitação manual de notas, permitindo upload em lote e exportação estruturada para CSV e XLSX.
 
 ## Tecnologias Utilizadas
 * **Linguagem:** Python 3.10+
@@ -16,7 +16,7 @@ O projeto resolve o problema de digitação manual de notas, permitindo upload e
 * [x] Identificação automática de **CNPJ** e **Data de Emissão**.
 * [x] Interface de tabela editável (Data Editor) para correções manuais rápidas.
 * [x] Exportação dos dados consolidados para **CSV**.
-* [ ] Identificação visual de arquivos problemáticos.
+* [x] Identificação visual de arquivos problemáticos.
 
 ## Roadmap (Próximos Passos)
 A evolução planejada para o projeto inclui:
