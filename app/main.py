@@ -62,41 +62,35 @@ def get_pdf():
 
     
     if arquivos :
-        arquivos_processados = []
-        st.write(f'Arquivos carregados com sucesso! Total de {len(arquivos)} arquivo(s).')
+        with st.spinner(f'Processando arquivos...{len(arquivos)}'):
 
-        for file in arquivos:
-            resultado = ap(file)
+            arquivos_processados = []
+            st.write(f'Arquivos carregados com sucesso! Total de {len(arquivos)} arquivo(s).')
 
-            if resultado["dados"]["CNPJ"] is None or resultado["dados"]["DATA"] is None or resultado["dados"]["VALOR"] is None:
-                status = "ATENÇÃO"
-                resultado["dados"]["STATUS"] = status
-            else:
-                status = "SUCESSO"
-                resultado["dados"]["STATUS"] = status
+            for file in arquivos:
+                resultado = ap(file)
 
-            if resultado["status"] == "success":
-                arquivos_processados.append({
-                    "ARQUIVO": resultado["filename"],
-                    **resultado["dados"]
-            })
-            else:
-                st.error(f"Erro ao processar {resultado['filename']}: {resultado['message']}")
+                if resultado["dados"]["CNPJ"] is None or resultado["dados"]["DATA"] is None or resultado["dados"]["VALOR"] is None:
+                    status = "ATENÇÃO"
+                    resultado["dados"]["STATUS"] = status
+                else:
+                    status = "SUCESSO"
+                    resultado["dados"]["STATUS"] = status
+
+                if resultado["status"] == "success":
+                    arquivos_processados.append({
+                        "ARQUIVO": resultado["filename"],
+                        **resultado["dados"]
+                    })
+                else:
+                    st.error(f"Erro ao processar {resultado['filename']}: {resultado['message']}")
 
             
 
         if arquivos_processados:
             
             df = pd.DataFrame(arquivos_processados)
-            
-
-            def color_cells(val):
-                color = 'yellow' if val == 'ATENÇÃO' else 'lightgreen'
-                return f'color: {color}; font-weight: bold'
-            
-            df_editado_styled = df.style.applymap(color_cells, subset=['STATUS'])
-
-            df_editado = st.data_editor(df_editado_styled,disabled=['STATUS'], use_container_width=True)
+            df_editado = st.data_editor(df, width='stretch')
 
             csv = df_editado.to_csv(index=False).encode('utf-8')
             buffer = io.BytesIO()
